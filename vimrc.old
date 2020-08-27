@@ -8,9 +8,8 @@ set nocompatible
 " =============================================================================
 language messages C
 set langmenu=en_US.UTF-8
-" check for  Perl ?
-filetype plugin on 
-"=============================================================================
+
+" =============================================================================
 " VIM-PLUG
 " =============================================================================
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
@@ -38,7 +37,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rvm'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
-"Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-sleuth'
@@ -48,7 +47,7 @@ Plug 'sodapopcan/vim-twiggy'
 Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-"Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kshenoy/vim-signature'
 Plug 'yggdroot/indentline'
@@ -85,15 +84,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'wincent/scalpel'
 Plug 'AndrewRadev/tagalong.vim'
-
-Plug 'preservim/nerdtree'
-Plug 'vim-scripts/dbext.vim'
-"Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
-"Plug 'vim-perl/vim-perl'
-Plug 'wolfgangmehner/perl-support'
-"Plug 'Raku/vim-raku'
-"Plug 'scrooloose/nerdtree'
-
 call plug#end()
 
 " =============================================================================
@@ -206,9 +196,9 @@ hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 hi NonText ctermfg=16 guifg=#EBCB8B
 hi SpecialKey ctermfg=16 guifg=#EBCB8B
 "Nord color for sneak
-"hi Sneak gui=bold guifg=#D8Dee9 guibg=#5E81AC
-"hi SneakScope  guifg=#2E3440 guibg=#EBCB8B
-"hi SneakLabelMask guifg=#5E81AC guibg=#5E81AC
+hi Sneak gui=bold guifg=#D8Dee9 guibg=#5E81AC
+hi SneakScope  guifg=#2E3440 guibg=#EBCB8B
+hi SneakLabelMask guifg=#5E81AC guibg=#5E81AC
 
 " ============================================================================
 " VISTA
@@ -545,10 +535,8 @@ let g:vimrubocop_confi = '.rubocop.yml'
 " =============================================================================
 " VIM-ROOTER
 " =============================================================================
-let g:rooter_cd_cmd="lcd"
 let g:rooter_silent_chdir = 1
-"let g:rooter_use_lcd = 1
-let g:rooter_cd_cmd="lcd"
+let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 let g:rooter_patterns = ['.git', '.git/']
 
@@ -570,19 +558,19 @@ let g:polyglot_disabled = ['markdown']
 " =============================================================================
 
 " case sensitivity
-"let g:sneak#use_ic_scs = 1
+let g:sneak#use_ic_scs = 1
 
 " clever repetition
-"let g:sneak#s_next = 1
-"let g:sneak#f_reset = 1
-"let g:sneak#t_reset = 1
+let g:sneak#s_next = 1
+let g:sneak#f_reset = 1
+let g:sneak#t_reset = 1
 " let g:sneak#absolute_dir = 1
 
 " target selection
-"let g:sneak#label = 1
-"let g:sneak#prompt = 'λ -> '
-"let g:sneak#label_esc = \<CR>"
-"let g:sneak#target_labels = 'aoeuidhtnspyfgcrlqjkxbmwvzAOEUIDHTNSPYFGCRLQJKXBMWVZ'
+let g:sneak#label = 1
+let g:sneak#prompt = 'λ -> '
+let g:sneak#label_esc = "\<CR>"
+let g:sneak#target_labels = 'aoeuidhtnspyfgcrlqjkxbmwvzAOEUIDHTNSPYFGCRLQJKXBMWVZ'
 
 " ============================================================================
 " VIM-GUTENTAGS
@@ -603,45 +591,6 @@ let g:gutentags_ctags_extra_args = ['--ignore-unsupported-options', '--recursive
 " EDITORCONFIG
 " =============================================================================
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
-
-" =============================================================================
-" Add Support for NerdTree
-"==============================================================================
-
-"How can I open a NERDTree automatically when vim starts up?
-"autocmd vimenter * NERDTree
-"How can I open a NERDTree automatically when vim starts up if no files were specified?
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif 
-"What if I'm also opening a saved session, for example vim -S
-"session_file.vim? I don't want NERDTree to open in that scenario
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") && v:this_session == "" | NERDTree | endif 
-"How can I open NERDTree automatically when vim starts up on opening a
-"directory?
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-"map <C-s> :NERDTreeToggle<CR>
-
-" ============================================================================
-" DBext Connections
-" ============================================================================
-
-" MySQL
-let g:dbext_default_profile_mariadbLocal = 'type=MYSQL:user=root:passwd=effeta:dbname=blackops'
-
-" SQLite
-"let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/path/to/my/sqlite.db'
-
-" Microsoft SQL Server   
-"
-"let g:dbext_default_SQLSRV_bin = 'tsql'
-
-"let g:dbext_default_profile_CONN = 'type=ODBC:dsnname=MYDSNNAME:user=domain\user:passwd=pass:dbname=initial_db'
-let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=SQLSRV:user=sa:passwd=effeta:host=192.168.0.7'
-"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=odbc-homedb:user=sa:passwd=effeta:dbname=sistemas'
-"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=Homedb:user=sa:passwd=effeta:dbname=sistemas'
-
-
 
 " =============================================================================
 "<F1> open help
@@ -678,13 +627,7 @@ nmap <C-F>n <Plug>CtrlSFCwordExec
 nnoremap <C-F>t :CtrlSFToggle<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-"map f <Plug>Sneak_f
-"map F <Plug>Sneak_F
-"map t <Plug>Sneak_t
-"map T <Plug>Sneak_T
-"
-" ============================================================================
-" Perl Support 
-" =============================================================================
-
-
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
