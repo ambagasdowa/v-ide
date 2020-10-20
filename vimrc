@@ -32,7 +32,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-capslock'
+"Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rvm'
@@ -48,7 +48,7 @@ Plug 'sodapopcan/vim-twiggy'
 Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-"Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kshenoy/vim-signature'
 Plug 'yggdroot/indentline'
@@ -93,6 +93,10 @@ Plug 'vim-scripts/dbext.vim'
 Plug 'wolfgangmehner/perl-support'
 "Plug 'Raku/vim-raku'
 "Plug 'scrooloose/nerdtree'
+Plug 'Chiel92/vim-autoformat'
+"Add Emmet Support 
+Plug 'mattn/emmet-vim'
+
 
 call plug#end()
 
@@ -206,9 +210,9 @@ hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 hi NonText ctermfg=16 guifg=#EBCB8B
 hi SpecialKey ctermfg=16 guifg=#EBCB8B
 "Nord color for sneak
-"hi Sneak gui=bold guifg=#D8Dee9 guibg=#5E81AC
-"hi SneakScope  guifg=#2E3440 guibg=#EBCB8B
-"hi SneakLabelMask guifg=#5E81AC guibg=#5E81AC
+hi Sneak gui=bold guifg=#D8Dee9 guibg=#5E81AC
+hi SneakScope  guifg=#2E3440 guibg=#EBCB8B
+hi SneakLabelMask guifg=#5E81AC guibg=#5E81AC
 
 " ============================================================================
 " VISTA
@@ -366,13 +370,19 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename' ] ],
-      \   'right':  [ ['lineinfo'],
-      \             [ 'linenoindicator' ],
-      \             [ 'rvm' ],
-      \             [ 'fileformat' ],
-      \             [ 'fileencoding' ],
-      \             [ 'filetype' ]]
+      \   'right':  [ 
+      \               ['clock'],
+      \               ['lineinfo'],
+      \               [ 'linenoindicator' ],
+      \               [ 'rvm' ],
+      \               [ 'fileformat' ],
+      \               [ 'fileencoding' ],
+      \               [ 'filetype' ],
+      \             ]
       \ },
+      \  'component': {
+      \    'clock': '%{strftime("%H:%M")}'
+      \  },
       \ 'component_function': {
       \   'gitbranch': 'Lightlinegit',
       \   'filetype': 'MyFiletype',
@@ -570,19 +580,19 @@ let g:polyglot_disabled = ['markdown']
 " =============================================================================
 
 " case sensitivity
-"let g:sneak#use_ic_scs = 1
+let g:sneak#use_ic_scs = 1
 
 " clever repetition
-"let g:sneak#s_next = 1
-"let g:sneak#f_reset = 1
-"let g:sneak#t_reset = 1
-" let g:sneak#absolute_dir = 1
+let g:sneak#s_next = 1
+let g:sneak#f_reset = 1
+let g:sneak#t_reset = 1
+ let g:sneak#absolute_dir = 1
 
 " target selection
-"let g:sneak#label = 1
-"let g:sneak#prompt = 'λ -> '
-"let g:sneak#label_esc = \<CR>"
-"let g:sneak#target_labels = 'aoeuidhtnspyfgcrlqjkxbmwvzAOEUIDHTNSPYFGCRLQJKXBMWVZ'
+let g:sneak#label = 1
+let g:sneak#prompt = 'λ -> '
+let g:sneak#label_esc = "\<CR>"
+let g:sneak#target_labels = 'aoeuidhtnspyfgcrlqjkxbmwvzAOEUIDHTNSPYFGCRLQJKXBMWVZ'
 
 " ============================================================================
 " VIM-GUTENTAGS
@@ -620,28 +630,81 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "How can I open NERDTree automatically when vim starts up on opening a
 "directory?
 "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-"map <C-s> :NERDTreeToggle<CR>
+map <C-s> :NERDTreeToggle<CR>
+
+
+
+
+" ============================================================================
+" RESIZE window or buffer
+" =============================================================================
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" =============================================================================
+" Maps dbext
+" =============================================================================
+map <leader>lt :DBListTable<CR>
+map <leader>lv :DBListView<CR>
+map <leader>lp :DBListProcedure<CR>
 
 " ============================================================================
 " DBext Connections
 " ============================================================================
-
+"let  g:dbext_default_DBI_column_delimiter = '\t'
+" let g:dbext_default_buffer_lines = 20 "(default)
+" let g:dbext_default_use_sep_result_buffer = 1 "(default=0)
 " MySQL
 let g:dbext_default_profile_mariadbLocal = 'type=MYSQL:user=root:passwd=effeta:dbname=blackops'
-
 " SQLite
 "let g:dbext_default_profile_sqlite_for_rails = 'type=SQLITE:dbname=/path/to/my/sqlite.db'
-
 " Microsoft SQL Server   
-"
-"let g:dbext_default_SQLSRV_bin = 'tsql'
-
+   " This SQL Server example uses sqsh to connect instead of the default osql
+    " binary by using the SQLSRV_bin connection parameter. Since this binary
+    " requires different parameters than osql, the 'extra' connection option
+    " is used to add additional switches.
+"    let g:dbext_default_profile_SQLSRV_sqsh='type=SQLSRV:user=User:passwd=Pass:host=Ip:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-SFreetdsProfile -D dbname'
+"    let g:dbext_default_profile_SQLSRV_noStripVariables = 'type=SQLSRV:user=sa:passwd=Leader:host='.expand($COMPUTERNAME).':strip_at_variables=0'
+let g:dbext_default_SQLSRV_bin = 'sqsh'
+"let g:dbext_default_SQLSRV_cmd_terminator = ' go -m pretty'
 "let g:dbext_default_profile_CONN = 'type=ODBC:dsnname=MYDSNNAME:user=domain\user:passwd=pass:dbname=initial_db'
-let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=SQLSRV:user=sa:passwd=effeta:host=192.168.0.7'
-"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=odbc-homedb:user=sa:passwd=effeta:dbname=sistemas'
-"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=Homedb:user=sa:passwd=effeta:dbname=sistemas'
+"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=SQLSRV:user=sa:passwd=effeta:host=MssqlWork'
+"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=MssqlWork:user=sa:passwd=effeta:dbname=sistemas'
+"let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=ODBC:dsnname=bpomedb:user=sa:passwd=effeta:dbname=sistemas'
+"
+"LocalEngine 
+let g:dbext_default_profile_HomeOrizabaLabSqlServer = 'type=SQLSRV:user=sa:passwd=effeta:host=192.168.0.7:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S Homedb -D sistemas' 
+"IntegraDB 10.8.0.240
+let g:dbext_default_profile_OrizabaProductionSa240 = 'type=SQLSRV:user=sa:passwd=Gst2020#.:host=10.8.0.240:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S IntegraDb2 -D sistemas' 
+let g:dbext_default_profile_OrizabaProductiondbadmin240 = 'type=SQLSRV:user=dbadmin:passwd=adminLv3?y:host=10.8.0.240:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S IntegraDb2 -D master' 
+let g:dbext_default_profile_OrizabaProductionEnuma240 = 'type=SQLSRV:user=enuma:passwd=@Elish#:host=10.8.0.240:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S IntegraDb2 -D sistemas' 
+"IntegraDb 10.8.0.235
+let g:dbext_default_profile_OrizabaProduction235 = 'type=SQLSRV:user=zam:passwd=lis:host=10.8.0.235:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S IntegraDb -D sistemas' 
+"SieDatabase 10.8.0.219
+let g:dbext_default_profile_OrizabaProduction219 = 'type=SQLSRV:user=enuma:passwd=@Elish#:host=10.8.0.219:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S SieLaboratory -D ws' 
 
 
+"=============================================================================
+" NOTE Clock in Vim
+"=============================================================================
+ let g:airline#extensions#clock#format = '%H:%M:%S'
+
+
+"==============================================================================
+" Enable Emmet plugin
+"=============================================================================
+let g:user_emmet_settings = {
+  \  'php' : {
+  \    'extends' : 'html',
+  \    'filters' : 'c',
+  \  },
+  \  'xml' : {
+  \    'extends' : 'html',
+  \  },
+  \  'haml' : {
+  \    'extends' : 'html',
+  \  },
+  \}
 
 " =============================================================================
 "<F1> open help
@@ -678,10 +741,10 @@ nmap <C-F>n <Plug>CtrlSFCwordExec
 nnoremap <C-F>t :CtrlSFToggle<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-"map f <Plug>Sneak_f
-"map F <Plug>Sneak_F
-"map t <Plug>Sneak_t
-"map T <Plug>Sneak_T
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 "
 " ============================================================================
 " Perl Support 
