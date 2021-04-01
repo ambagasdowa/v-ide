@@ -66,7 +66,7 @@ Plug 'rhysd/devdocs.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'dyng/ctrlsf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'sheerun/vim-polyglot'
@@ -86,7 +86,13 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'wincent/scalpel'
 Plug 'AndrewRadev/tagalong.vim'
 
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
+"NOTE Replace nerdtree with ranger
+"Plug 'rafaqz/ranger.vim'
+Plug 'francoiscabrol/ranger.vim'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 Plug 'vim-scripts/dbext.vim'
 "Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 "Plug 'vim-perl/vim-perl'
@@ -97,6 +103,8 @@ Plug 'Chiel92/vim-autoformat'
 "Add Emmet Support 
 Plug 'mattn/emmet-vim'
 
+"NOTE Theme Material
+Plug 'kristijanhusak/vim-hybrid-material'
 
 call plug#end()
 
@@ -177,7 +185,7 @@ set nojoinspaces                          " two spaces after a period on join
 set title                                 " show window title
 set cursorline
 set nolist listchars=tab:▸\ ,trail:·,precedes:←,extends:→,eol:↲,nbsp:␣
-
+set background=dark
 " jump to the last known cursor position
 autocmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -317,51 +325,52 @@ let g:SignatureMarkerTextHLDynamic = 1
 " =============================================================================
 " COC
 " =============================================================================
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-let g:coc_global_extensions = ['coc-solargraph', 'coc-highlight', 'coc-python', 'coc-yaml', 'coc-html', 'coc-css', 'coc-json',  'coc-xml', 'coc-snippets', 'coc-tsserver', 'coc-prettier', 'coc-flutter', 'coc-explorer', 'coc-markdownlint', 'coc-db']
-autocmd CursorHold * silent call CocActionAsync('highlight')
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+"command! -nargs=0 Prettier :CocCommand prettier.formatFile
+"let g:coc_global_extensions = ['coc-solargraph', 'coc-highlight', 'coc-python', 'coc-yaml', 'coc-html', 'coc-css', 'coc-json',  'coc-xml', 'coc-snippets', 'coc-tsserver', 'coc-prettier', 'coc-flutter', 'coc-explorer', 'coc-markdownlint', 'coc-db']
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? coc#_select_confirm() :
+"      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"function! s:check_back_space() abort
+"  let col = col('.') - 1
+"  return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
-let g:coc_snippet_next = '<tab>'
-let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '•'
+"let g:coc_snippet_next = '<tab>'
+"let g:coc_status_error_sign = '•'
+"let g:coc_status_warning_sign = '•'
 
-let g:coc_explorer_global_presets = {
-\   '.vim': {
-\   },
-\   'floating': {
-\      'position': 'floating',
-\   },
-\   'floatingTop': {
-\     'position': 'floating',
-\     'floating-position': 'center-top',
-\   },
-\   'floatingLeftside': {
-\      'position': 'floating',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'floatingRightside': {
-\      'position': 'floating',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'simplify': {
-\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   }
-\ }
+"let g:coc_explorer_global_presets = {
+"\   '.vim': {
+"\   },
+"\   'floating': {
+"\      'position': 'floating',
+"\   },
+"\   'floatingTop': {
+"\     'position': 'floating',
+"\     'floating-position': 'center-top',
+"\   },
+"\   'floatingLeftside': {
+"\      'position': 'floating',
+"\      'floating-position': 'left-center',
+"\      'floating-width': 50,
+"\   },
+"\   'floatingRightside': {
+"\      'position': 'floating',
+"\      'floating-position': 'left-center',
+"\      'floating-width': 50,
+"\   },
+"\   'simplify': {
+"\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+"\   }
+"\ }
 
 " =============================================================================
 " LIGHTLINE AND LIGHTLINE-BUFFERLINE
+" colorscheme nord
 " =============================================================================
 let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#enable_devicons = 1
@@ -630,7 +639,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "How can I open NERDTree automatically when vim starts up on opening a
 "directory?
 "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-map <C-s> :NERDTreeToggle<CR>
+"map <C-s> :NERDTreeToggle<CR>
 
 
 
@@ -681,13 +690,15 @@ let g:dbext_default_profile_OrizabaProductionEnuma240 = 'type=SQLSRV:user=enuma:
 "IntegraDb 10.8.0.235
 let g:dbext_default_profile_OrizabaProduction235 = 'type=SQLSRV:user=zam:passwd=lis:host=10.8.0.235:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S IntegraDb -D sistemas' 
 "SieDatabase 10.8.0.219
-let g:dbext_default_profile_OrizabaProduction219 = 'type=SQLSRV:user=enuma:passwd=@Elish#:host=10.8.0.219:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S SieLaboratory -D ws' 
-
+let g:dbext_default_profile_OrizabaProduction219_WS = 'type=SQLSRV:user=sa:passwd=sa:host=10.8.0.219:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S SieLaboratory -D ws' 
+let g:dbext_default_profile_OrizabaProduction219_Pruebasdb2019 = 'type=SQLSRV:user=sa:passwd=sa:host=10.8.0.219:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S SieLaboratory -D pruebasdb2019' 
+let g:dbext_default_profile_OrizabaProduction222_WS = 'type=SQLSRV:user=sa:passwd=sa:host=10.8.0.222:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S GstLaboratory -D ws' 
+let g:dbext_default_profile_OrizabaProduction222_Pruebasdb2019 = 'type=SQLSRV:user=sa:passwd=sa:host=10.8.0.222:SQLSRV_bin=sqsh:SQLSRV_cmd_options=:extra=-m pretty -S GstLaboratory -D pruebasdb2019' 
 
 "=============================================================================
 " NOTE Clock in Vim
 "=============================================================================
- let g:airline#extensions#clock#format = '%H:%M:%S'
+" let g:airline#extensions#clock#format = '%H:%M:%S'
 
 
 "==============================================================================
@@ -750,4 +761,22 @@ map T <Plug>Sneak_T
 " Perl Support 
 " =============================================================================
 
-
+" =============================================================================
+" RANGER support
+" =============================================================================
+" nmap <leader>f :Ranger<CR>
+ nmap <C-s> :RangerNewTab<CR>
+" map <leader>f :RangerCurrentFileNewTab<CR>
+" map <leader>f :Ranger<CR>
+" ============================================================================
+" 
+"=============================================================================
+"map <leader>rr :RangerEdit<cr>
+"map <leader>rv :RangerVSplit<cr>
+"map <leader>rs :RangerSplit<cr>
+"map <leader>rt :RangerTab<cr>
+"map <leader>ri :RangerInsert<cr>
+"map <leader>ra :RangerAppend<cr>
+"map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
+"map <leader>rd :RangerCD<cr>
+"map <leader>rld :RangerLCD<cr>

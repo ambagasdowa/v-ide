@@ -1,3 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/var/www/development/public_html/kml/app/views/disponibilidad_view_rpt_unidades_gst_indicators'
+let g:netrw_dirhist_5='/home/ambagasdowa/Gitlab/sql/sistemas'
+let g:netrw_dirhist_4='/home/ambagasdowa/Gitlab/sql'
+let g:netrw_dirhist_3='/home/ambagasdowa/Gitlab/sql/costos'
+let g:netrw_dirhist_2='/var/www/development/public_html/kml/app/views/disponibilidad_view_rpt_unidades_gst_indicators'
 let g:netrw_dirhist_1='/home/ambagasdowa/Gitlab/sql/RentabilidadRemolque'

@@ -24,7 +24,7 @@ Check [vim-polyglot](https://github.com/sheerun/vim-polyglot) for full list.
 
 **INSTALLATION**
 ```console
-git clone git://github.com:crivotz/v-ide.git ~/.v-ide
+git clone https://github.com/ambagasdowa/v-ide.git ~/.v-ide
 cd ~/.v-ide
 ln -s ~/.v-ide/vimrc .vimrc
 ln -s ~/.v-ide/vim .vim
