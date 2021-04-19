@@ -104,7 +104,10 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mattn/emmet-vim'
 
 "NOTE Theme Material
-Plug 'kristijanhusak/vim-hybrid-material'
+"Plug 'kristijanhusak/vim-hybrid-material'
+
+"NOTE add colorsqheme 
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
